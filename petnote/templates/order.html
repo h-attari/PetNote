@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/order.css' %}">
+	<script src="{% static 'js/script.js' %}" rel="text/javascript"></script>
+	<script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('.ordercont').fadeIn(1000);
+			$('.ordercont').css("display","block")
+		});
+	</script>
+</head>
+<body>
+	<div class="body">
+		<div class="ordercont">
+			<div id="back" align="center">
+				<div title="Close" class="close" onclick="goBack()">X</div>
+				<div id="topic">
+					Orders
+				</div>
+				<div class="main">	
+					{% if empty %}
+						<div id="empty">**No Order History**</div>
+					{% else %}
+						<table cellspacing="4xp">
+							<tr>
+								<th class="orderid">Order ID</th>
+								<th class="orderdetail">Details</th>
+								<th class="orderdate">Date</th>
+							</tr>
+							{% for e in order %}
+							<tr>
+								<td class="orderid" align="center">{{e.order_id}}</td>
+								<td class="orderdetail">
+									{% for x in e.order_detail %}
+										<div>
+											{{x.0}}, {{x.2}}({{x.1}})<br>
+											Native: {{x.3}}
+										</div>
+										<br>
+									{% endfor %}
+								</td>
+								<td class="orderdate" align="center">{{e.order_date}}</td>
+							</tr>
+							{% endfor %}
+						</table>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

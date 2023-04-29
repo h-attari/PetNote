@@ -1,0 +1,223 @@
+body
+{
+	width: 1506px;
+	height: 738px;
+	/*background-color: yellow;*/
+	/*overflow: auto;*/
+}
+.nav
+{
+	height: 100%;
+	width: 255px;
+	background-image: linear-gradient(#F5DEB3,white);
+	float: left;
+}
+.profile
+{
+	width: 100%;
+	height: 8%;
+	margin-top: 8px;
+}
+#pimg
+{
+	width: 20%;
+	height: 80%;
+	float: left;
+	margin-left: 10px;
+	margin-top: 2px;
+}
+#pimg img
+{
+	height: 100%;
+	width: 100%;
+	border-radius: 45px;
+}
+#pname
+{
+	font-style: italic;
+	float: right;
+	width: 70%;
+	height: 100%;
+	margin-top: 8px;
+}
+#pname a:hover
+{
+	color: brown;
+	text-decoration: underline;
+}
+hr
+{
+	background-color: #FFDEAD;
+	height: 1px;
+}
+.navlinks
+{
+	margin-top: 10px;
+	width: 100%;
+	height: 90%;
+}
+a
+{
+	text-decoration: none;
+	color: black;
+}
+ul
+{
+	list-style: none;
+	margin-top: 5px;
+	padding-left: 15px;
+	line-height: 25px;
+}
+li:hover
+{
+	font-style: italic;
+	text-decoration: underline; 
+}
+.species
+{
+	width: 80%;
+	padding-left: 20px;
+	background-color: #FFF8DC;
+	border-radius: 20px;
+	display: none;
+}
+.species form li input
+{
+	border: 0px;
+	background-color: #FFF8DC;
+	color: black;
+	font-size: 16px;
+}
+.species form li input:hover
+{
+	font-style: italic;
+	cursor: pointer;
+}
+.filterimg
+{
+	margin-top: 7px;
+	height: 30px;
+	width: 30px;
+}
+#catag
+{
+	cursor: pointer;
+}
+.out
+{
+	margin-top: 10px;
+}
+#searchcont
+{
+	height: 100%;
+	width: 1251px;
+	float: left;
+	/*background-color: yellow;*/
+	overflow-x: auto;
+}
+/*#footer
+{
+	width: 100%;
+	height: 19%;
+	font-size: 12px;
+	float: left;
+	background-image: linear-gradient(white,white,#FFF8DC,#FFF8DC);
+}*/
+#facebook
+{
+	width: 33%;
+	height: 93%;
+	float: left;
+}
+#insta
+{
+	width: 33%;
+	height: 93%;
+	float: left;
+	margin-left: 5px;
+}
+#twitter
+{
+	width: 33%;
+	height: 93%;
+	float: right;
+}
+.note
+{
+	margin-top: 40px;
+	margin-bottom: 5px;
+	font-size: 16px;
+	font-style: italic;
+}
+.anote
+{
+	font-size: 14px;
+}
+.anote:hover
+{
+	font-style: italic;
+	font-weight: bold;
+}
+.rows
+{
+	width: 100%;
+	height: 30%;
+	margin-top: 7px;
+}
+.block
+{
+	height: 100%;
+	width: 15%;
+	margin-left: 45px;
+	float: left;
+	border: 1px black solid;
+	background-color: rgba(245,222,179,0.2);
+}
+.block div
+{
+	height: 38%;
+	/*background-color: grey;*/
+	width: 100%;
+	font-size: 16px;
+}
+#price
+{
+	margin: 2.5px;
+	height: 25%;
+}
+#name
+{
+	height: auto;
+}
+.block button
+{
+	height: 15%;
+	width: 90%;
+	cursor: pointer;
+}
+#more
+{
+	float: right;
+	margin-right: 5px;
+	width: 40%;
+	background-color: inherit;
+	border: 0px;
+	font-size: 14px;
+}
+#more:hover
+{
+	font-style: italic;
+	text-decoration: underline;
+}
+.block img
+{
+	width: 70%;
+	height: 40%;
+	margin-top: 10px;
+}
+#error
+{
+	margin-top: 20%;
+	font-size: 24px;
+	font-style: italic;
+}

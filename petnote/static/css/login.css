@@ -1,0 +1,124 @@
+body
+{
+	width: 1506px;
+	height: 745px;
+}
+.body
+{
+	height: 100%;
+	width: 100%;
+	background-image: url('../images/background/back.png');
+	background-size: cover;
+	float: right;
+}
+.logincont
+{
+	width: 800px;
+	height: 550px;
+	border: 2px solid black;
+	margin: 70px 0px 0px 370px;
+	background-image: url("../images/background/pets2a.png");
+	background-size: cover;
+	border-radius: 45px;
+	display: none;
+}
+.sign
+{
+	float: right;
+	margin: 20px 40px 0px 0px;
+	font-size: 24px;
+	font-style: italic;
+	text-decoration: none;
+	color: black;
+}
+.sign:hover
+{
+	text-decoration: underline;
+	color: crimson; 
+}
+.login
+{
+	margin: 270px 0px 0px 100px;
+}
+.login span
+{
+	font-size: 20px;
+	padding-left: 50px;
+	font-style: italic;
+}
+.login table
+{
+	margin-top: 10px;
+	font-size: 18px;
+	font-style: italic;
+	border-radius: 10px;
+	border: 0.5px lightgrey solid;
+}
+.input
+{
+	height: 100%;
+	width: 100%;
+	border: 0px;
+}
+.label
+{
+	border-right: 0.5px lightgrey solid;
+	width: 150px;
+	background-color: #DEB887; 
+}
+.login td
+{
+	height: 35px;
+}
+.submit
+{
+	margin-top: 5px;
+	width: 80px;
+	height: 25px;
+	border-radius: 20px;
+	margin-left: 40px;
+	cursor: pointer;
+}
+.submit:hover
+{
+	background-color: #DAA520;
+	color: white;
+}
+.copyright
+{
+	width: 100%;
+	height: 12px;
+	font-size: 12px;
+	float: bottom;
+
+}
+.logo
+{
+	width: 250px;
+	height: 250px;
+	margin-left: 80px;
+	margin-top: 20px;
+}
+.close
+{
+	float: left;
+	margin: 10px 0px 0px 15px;
+	font-size: 20px;
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+#forgot
+{
+	color: black;
+	margin-left: 15%;
+}
+#forgot:hover
+{
+	color: brown;
+	font-style: italic;
+}
+.choose
+{
+	margin-left: 20px;
+}

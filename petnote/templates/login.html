@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+	<script src="{% static 'js/script.js' %}" rel="text/javascript"></script>
+	<script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('.logincont').fadeIn();
+			$('.logincont').css('display','block');
+		});
+	</script>
+</head>
+<body>
+	<div class="body">	
+		<div class="logincont">
+			<div title="Close" class="close" onclick="goBack()">X</div>
+			<img class="logo" src="{% static 'images/logo.png' %}" style="float: left; width: 250px; height: 250px;">
+			<div><a href="/sign" class="sign">Sign-Up</a></div>
+			<div class="login">
+				<span><b>Login</b></span>
+				<form action="/check" method="post">
+					{% csrf_token %}
+					<input type="radio" name="choose" value="user" class="choose">User
+					<input type="radio" name="choose" value="admin" class="choose">Admin
+					<table cellspacing="0px" cellpadding="5px">
+						<tr>
+							<td class="label" style="border-bottom: 0.5px lightgrey solid; border-radius: 10px 0px 0px 0px;">
+								Username
+							</td>
+							<td style="border-bottom: 0.5px lightgrey solid; width:230px; background-color: white; border-radius: 0px 10px 0px 0px;"><input type="text" name="user" class="input"></td>
+						</tr>
+						<tr>
+							<td class="label" style="border-radius: 0px 0px 0px 10px;">
+								Password
+							</td>
+							<td style="width: 230px; background-color: white; border-radius: 0px 0px 10px 0px;"><input type="password" name="passw" class="input"></td>
+						</tr>
+					</table>
+					<button type="submit" class="submit">Login</button>
+					<a href="/forgot" id="forgot">Forgot Password</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

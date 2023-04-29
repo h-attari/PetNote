@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/pay.css'%}">
+	<script src="{% static 'js/script.js' %}" rel="text/javascript"></script>
+	<script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('#cod').click(function()
+			{
+				$('#credit').css("display","none")
+				$('#debit').css("display","none")
+				$('#net').css("display","none");
+			});
+			$('#netbank').click(function()
+			{
+				$('#credit').css("display","none")
+				$('#debit').css("display","none")
+				$('#net').slideDown(500);
+				$('#net').css("display","block");
+			});
+			$('#creditcard').click(function()
+			{
+				$('#net').css("display","none")
+				$('#debit').css("display","none")
+				$('#credit').slideDown(500);
+				$('#credit').css("display","block");
+			});
+			$('#debitcard').click(function()
+			{
+				$('#net').css("display","none")
+				$('#credit').css("display","none")
+				$('#debit').slideDown(500);
+				$('#debit').css("display","block");
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="body">
+		<div class="paycont">
+			<div id="back" align="left">
+				<div title="Close" class="close" onclick="goBack()">X</div>
+				<!-- <div id="topic">
+					Payment
+				</div> -->
+				<div id="add">
+					<label>Delivery Add.:</label>
+					<br>
+					<textarea name="address" disabled="" id="address">{{address}}
+{{country}}</textarea>
+					<button onclick="Other('address')">
+						Change
+					</button>
+				</div>
+				<div id="payinfo">
+					<div id="topic">Select payment method:</div>
+					<input type="radio" name="pay" id="cod" onclick="Dother('promoc')">Cash on Delivery<br>
+					<input type="radio" name="pay" onclick="Other('promoc')" id="netbank">Net-Banking<br>
+					<div class="card" id="net">
+						<label>Bank:</label>
+						<select onclick="Sother('nother','ns')" id="ns">
+							<option value="0">**Select**</option>
+							<option value="1">Andhra Bank</option>
+							<option value="2">Bank of India</option>
+							<option value="3">Bank of Baroda</option>
+							<option value="4">Canara Bank</option>
+							<option value="5">Kotak Mahindra Bank</option>
+							<option value="-1">Other</option>
+						</select>
+						<input type="text" placeholder="Enter Bank" disabled="" id="nother">
+					</div>
+					<input type="radio" name="pay" id="creditcard" onclick="Other('promoc')">Credit Card<br>
+					<div class="card" id="credit">
+						<label>Bank:</label>
+						<select onclick="Sother('cother','cs')" id="cs">
+							<option value="0">**Select**</option>
+							<option value="1">Andhra Bank</option>
+							<option value="2">Bank of India</option>
+							<option value="3">Bank of Baroda</option>
+							<option value="4">Canara Bank</option>
+							<option value="5">Kotak Mahindra Bank</option>
+							<option value="-1">Other</option>
+						</select>
+						<input type="text" placeholder="Enter Bank" disabled="" id="cother">
+						<br>
+						<label>Name:</label>
+						<input type="text" name="" placeholder="Name on Card" id="name" onchange="Name('cname')">
+						<br>
+						<label>Card No.:</label>
+						<input type="text" name="" id="cc" onchange="Card('cc')">
+						&nbsp;
+						<label>CVV No.:</label>
+						<input type="text" name="" id="ccvv" onchange="CVV('ccvv')">
+						<br>
+						<label>Expiry Date:</label>
+						<input type="date" name="">
+					</div>
+					<input type="radio" name="pay" id="debitcard" onclick="Other('promoc')">Debit Card<br>
+					<div class="card" id="debit">
+						<label>Bank:</label>
+						<select onclick="Sother('dother','ds')" id="ds">
+							<option value="0">**Select**</option>
+							<option value="1">Andhra Bank</option>
+							<option value="2">Bank of India</option>
+							<option value="3">Bank of Baroda</option>
+							<option value="4">Canara Bank</option>
+							<option value="5">Kotak Mahindra Bank</option>
+							<option value="-1">Other</option>
+						</select>
+						<input type="text" placeholder="Enter Bank" disabled="" id="dother">
+						<br>
+						<label>Name:</label>
+						<input type="text" name="" placeholder="Name on Card" id="dname" onchange="Name('dname')">
+						<br>
+						<label>Card No.:</label>
+						<input type="text" name="" id="dc" onchange="Card('dc')">
+						&nbsp;
+						<label>CVV No.:</label>
+						<input type="text" name="" onchange="CVV('dcvv')" id="dcvv">
+						<br>
+						<label>Expiry Date:</label>
+						<input type="date" name="">
+					</div>
+					<span id="error"></span>
+					<div id="promo">
+						<label>Add Promo. Code:</label>
+						<input type="text" name="" placeholder="Enter Promo. Code" id="promoc" disabled="" onchange="Promocode('promoc')">
+						<br>
+						<span id="nopromo"></span>
+					</div>
+				</div>
+				<div id="payment" align="center">
+					<a href="/success"><button type="button" disabled="" id="btn">Pay (Amount:${{amount}})</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

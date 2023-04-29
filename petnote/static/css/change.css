@@ -1,0 +1,84 @@
+body
+{
+	width: 1506px;
+	height: 745px;
+}
+.body
+{
+	height: 100%;
+	width: 100%;
+	background-image: url('../images/background/back.png');
+	background-size: cover;
+	float: right;
+}
+.chngcont
+{
+	width: 800px;
+	height: 550px;
+	border: 2px solid black;
+	border-radius: 45px;
+	margin: 70px 0px 0px 370px;
+	background-image: url('../images/background/changeback.jpg');
+	display: none;
+}
+table
+{
+	border: black 1px solid;
+	border-radius: 10px;
+}
+.label
+{
+	border-right: 1px solid black;
+	height: 40px;
+	width: 180px;
+	padding-left: 5px;
+	background: rgba(255,248,220,0.7);
+}
+.input
+{
+	height: 40px;
+	width: 285px;
+}
+input
+{
+	height: 100%;
+	width: 99.3%;
+	border: 0px;
+	background: rgba(0,0,0,0.3);
+	color: white;
+	font-size: 20px;
+}
+button
+{
+	margin-top: 10px;
+	color: black;
+	cursor: pointer;
+}
+button:hover
+{
+	background-color: white;
+	border-radius: 7px;
+}
+.close
+{
+	float: left;
+	margin: 10px 0px 0px 15px;
+	font-size: 20px;
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+.topic
+{
+	margin-top: 20px;
+	text-decoration: underline;
+	font-style: italic;
+	font-size: 24px;
+	margin-bottom: 80px;
+	color: #8B4513;
+}
+#error
+{
+	background-color: red;
+	color: white;
+}

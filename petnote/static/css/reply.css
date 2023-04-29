@@ -1,0 +1,115 @@
+body
+{
+	width: 1506px;
+	height: 745px;
+}
+.body
+{
+	height: 100%;
+	width: 100%;
+	background-image: url('../images/background/admin_back.png');
+	background-size: cover;
+	float: right;
+}
+.replycont
+{
+	width: 800px;
+	height: 550px;
+	border: 2px solid black;
+	margin: 70px 0px 0px 370px;
+	background-image: url("../images/background/reply.jpg");
+	background-size: cover;
+	border-radius: 45px;
+	display: none;
+}
+#back
+{
+	width: 100%;
+	height: 100%;
+	border-radius: 42px;
+	background-color: rgba(255,255,255,0.8);
+	float: right;
+}
+.close
+{
+	float: left;
+	margin: 10px 0px 0px 15px;
+	font-size: 20px;
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+#topic
+{
+	margin-top: 40px;
+	font-size: 20px;
+	font-style: italic;
+	text-decoration: underline;
+}
+#main
+{
+	width: 70%;
+	height: 80%;
+	margin-top: 5%;
+	/*background-color: yellow;*/
+}
+form
+{
+	width: 100%;
+	height: 100%;
+}
+table
+{
+	width: 80%;
+	/*background-color: grey;*/
+}
+.label
+{
+	text-align: center;
+	width: 30%;
+	height: 30px;
+	/*background-color: red;*/
+	font-style: italic;
+	font-size: 16px;
+}
+.data
+{
+	width: 70%;
+}
+#query
+{
+	height: 90px;
+	overflow-x: auto;
+}
+#ans
+{
+	width: 80%;
+	height: 40%;
+	margin-top: 20px;
+	/*background-color: white;*/
+	font-style: italic;
+	font-size: 18px;
+}
+textarea
+{
+	width: 99%;
+	height: 80%;
+	font-size: 15px;
+}
+#send
+{
+	float: right;
+	margin-right: 20%;
+	width: 20%;
+	height: 7%;
+	border-radius: 15px;
+	cursor: pointer;
+	background: linear-gradient(orange,gold);
+	color: black;
+	font-size: 16px;
+}
+#send:hover
+{
+	font-style: italic;
+	box-shadow: 2px 2px black;
+}

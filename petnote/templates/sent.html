@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/forgot.css' %}">
+	<script src="{% static 'js/script.js' %}" rel="text/javascript"></script>
+	<!-- <script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script> -->
+	<!-- <script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('.forgotcont').slideDown();
+			$('.forgotcont').css('display','block');
+		});
+	</script> -->
+</head>
+<body>
+	<div class="body">	
+		<div class="forgotcont" align="center">
+			<div><a href="/home" class="close" title="Close">X</a></div>
+			<div id="topic" align="center">
+				Forgot Password
+			</div>
+			<div id="msg">
+				Password have been sent to you'r Registered Email.
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/admins.css' %}">
+	<script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script>
+	<script src="{% static 'jquery/jquery.cycle.all.js' %}" rel="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{});
+	</script>
+</head>
+<body style="width: 1506px; height: 738px;">
+	{% if flag %}
+		<div class="nav">
+			<div class="profile">
+				<div id="pimg">
+					<img src="{% static 'images/profile.png' %}">
+				</div>
+				<div id="pname">
+					{% if flag == 1 %}
+						<a href="/change">{{info.0}} / {{info.2}}</a>
+						<br>
+						<span>(Admin.)</span>
+					{% else %}
+						User/Customer
+					{% endif %}
+				</div>
+			</div>
+			<hr>
+			<div class="navlinks">
+				<ul>
+					<li class="out"><a href="">Queries</a></li>
+					<li class="out"><a href="/admins/orders">Orders</a></li>
+					{% if flag == 1 %}
+						<li class="out"><a href="/logout">Logout</a></li>
+					{% else %}
+						<li class="out"><a href="/login">Login/Sign-up</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+		<div class="cont">
+			<div align="center" id="topic">
+				Queries..!!
+			</div>
+			{% for rec in finallist %}
+				{% for r in rec %}
+					<div id="left">
+						<table class="main">
+							<tr>
+								<td class="num" align="center">{{r.6}}.</td>
+								<td class="data">
+									<table class="sub">
+										<tr>
+											<td>Name:</td>
+											<td>{{r.1}} {{r.2}}</td>
+										</tr>
+										<tr>
+											<td>Mobile:</td>
+											<td>{{r.4}}</td>
+										</tr>
+										<tr>
+											<td>Email:</td>
+											<td>{{r.3}}</td>
+										</tr>
+										<tr>
+											<td>Query:</td>
+											<td>{{r.5}}</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						<form action="/admins/reply" method="post">
+							{% csrf_token %}
+							<button type="submit" value="{{r.0}}" name="reply" class="reply">Reply</button>
+						</form>
+					</div>
+				{% endfor %}
+			{% endfor %}
+		</div>
+	{% else %}
+		<div>Unauthorized Access..!!
+			<br>
+			Access Denied..
+		</div>
+	{% endif %}
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+	<script rel="text/javascript" src="{% static 'js/script.js' %}"></script>
+	<script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('.signcont').slideDown();
+			$('.signcont').css('display','block');
+		});
+	</script>
+</head>
+<body>
+	<div class="body">
+		<div class="signcont">
+			<div title="Close" class="close" onclick="goBack()">X</div>
+			<center>
+				<div class="topic">Register</div>
+				<br>
+				<div class="rgstr">
+					<span id="error"></span>
+					<form action="/itask" method="post">
+						{% csrf_token %}
+						<table cellspacing="0px" cellpadding="0px">
+							<tr>
+								<td class="label">Name</td>
+								<td class="input"><input type="text" name="fname" style="border-top-right-radius: 7px;" required="" id="fname" onchange="Name('fname')"></td>
+							</tr>
+							<tr>
+								<td class="label">Last Name</td>
+								<td class="input"><input type="text" name="lname" required="" id="lname" onchange="Name('lname')"></td>
+							</tr>
+							<tr>
+								<td class="label">Username</td>
+								<td class="input"><input type="text" name="user" required=""></td>
+							</tr>
+							<tr>
+								<td class="label">Password</td>
+								<td class="input"><input type="password" name="password" required="" id="password" onchange="Password('password')"></td>
+							</tr>
+							<tr>
+								<td class="label">Confirm Pass.</td>
+								<td class="input"><input type="password" required="" id="cpass" onchange="Confirm('password','cpass')"></td>
+							</tr>
+							<tr>
+								<td class="label">Country</td>
+								<td class="input">
+									<input list="countries" name="country" required="">
+									<datalist id="countries">
+										{% for x in list %}
+											<option value="{{x}}">
+										{% endfor %}
+									</datalist>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">Mobile</td>
+								<td class="input"><input type="text" name="mobile" required="" id="mobile" onchange="Mobile('mobile')"></td>
+							</tr>
+							<tr>
+								<td class="label">Address</td>
+								<td class="input"><textarea type="text" name="address" required="" id="address"></textarea></td>
+							</tr>
+							<tr>
+								<td class="label" style="border-bottom: 0px;">Email</td>
+								<td class="input" style="border-bottom: 0px;"><input type="email" name="email" style="border-bottom-right-radius: 7px;" required="" id="mail" onchange="Mail('mail')"></td>
+							</tr>
+						</table>
+						<button type="submit">Submit</button>
+						<button type="reset">Cancel</button>
+					</form>
+				</div>
+			</center>
+		</div>
+	</div>
+</body>
+</html>
