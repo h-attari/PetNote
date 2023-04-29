@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/cart.css' %}">
+	<script src="{% static 'js/script.js' %}" rel="text/javascript"></script>
+</head>
+<body>
+	<div class="body">
+		<div class="cartcont">
+			<div id="back" align="center">
+				<div><a href="/" title="Close" class="close">X</a></div>
+				<div id="topic">
+					My Cart
+				</div>
+				<div class="main">	
+					{% if empty %}
+						<div id="empty">**No items in the Cart**</div>
+					{% else %}
+						<div id="table" align="left">
+							<div id="carttable">
+									<form action="/cart" method="post">
+										{% csrf_token %}
+										<table>
+										<tr>
+											<th id="noh">S.No.</th>
+											<th id="itemh">Item</th>
+											<th id="quantityh">Quantity</th>
+											<th id="priceh">Amount</th>
+										</tr>
+										{% for e in object%}
+											<tr>
+												<td id="no" align="center">{{e.no}}.</td>
+												<td id="item" align="center" >{{e.item}}</td>
+												<td id="quantity" align="center">
+													<table id="plusminus" cellspacing="0px" cellpadding="0px">
+														<tr>
+															<form action="/cart" method="post">
+																{% csrf_token %}
+																<td id="plus">
+																	<input type="text" value="{{e.item}}" name="a" style="display: none;">
+																	<button type="submit" value="1" name="q">
+																		+
+																	</button>
+																</td>
+															</form>
+															<td id="num" align="center">{{e.quantity}}</td>
+															<form action="/cart" method="post">
+																{% csrf_token %}
+																<td id="minus">
+																	<input type="text" value="{{e.item}}" name="a" style="display: none;">
+																	<button type="submit" value="-1" name="q">
+																		-
+																	</button>
+																</td>
+															</form>
+														</tr>
+													</table>
+												</td>
+												<td id="price" align="center">${{e.amount}}</td>
+											</tr>
+										{% endfor %}
+									</table>
+									</form>
+							</div>
+							<div id="billtable">
+								<div></div>
+								<table>
+									<tr>
+										<th align="left" colspan="3">Bill:</th>
+									</tr>
+									<tr>
+										<td class="sno">1.</td>
+										<td class="bfield">Bill Amount:</td>
+										<td class="bamount" align="center">${{sum}}</td>
+									</tr>
+									<tr>
+										<td class="sno">2.</td>
+										<td class="bfield">Tax Amount:(rate:18%)</td>
+										<td class="bamount" align="center">${{tax}}</td>
+									</tr>
+									<tr>
+										<td class="sno">3.</td>
+										<td class="bfield">Online Service Charges:(rate:0.5%)</td>
+										<td class="bamount" align="center">${{charges}}</td>
+									</tr>
+									<tr>
+										<td class="sno"></td>
+										<td class="bfield" align="right">Total Bill Amount:</td>
+										<td class="bamount" align="center" id="total">${{total}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div id="proceed">
+							<form action="/pay" method="post">
+								{% csrf_token %}
+								<button type="submit" value="{{total}}" name="amount">Proceed (Amount: ${{total}})</button>
+							</form>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

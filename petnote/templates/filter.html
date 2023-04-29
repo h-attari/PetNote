@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/filter.css' %}">
+	<script src="{% static 'js/script.js' %}" rel="text/javascript"></script>
+	<!-- <script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('.filtercont').show(1000);
+			$('.filtercont').css('display','block');
+		});
+	</script> -->
+</head>
+<body>
+	<div class="body">
+		<div class="filtercont">
+			<div id="fade" align="center">
+				<div title="Close" class="close" onclick="goBack()">X</div>
+				<div id="topic">
+					Filter
+				</div>
+				<div class="main" align="left">
+					<table cellspacing="15px">
+						<tr>
+							<td class="label">Animal:</td>
+							<td>
+								<form action="/filter" method="post">
+									{% csrf_token %}
+									<input list="animals" name="animal" id="animal" value="{{x}}">
+									<datalist id="animals">
+										{% for e in animal %}
+											<option value="{{e}}">
+										{% endfor %}
+									</datalist>
+									<button type="submit" id="subanimal">Select</button>
+								</form>
+							</td>
+						</tr>
+						<form action="/search" method="post">
+							{% csrf_token %}
+							<input type="text" name="animal" value="{{x}}" style="display: none;">
+							<tr>
+								<td class="label">Type:</td>
+								<td>
+									<table>
+										{% for rec in atype %}
+											<tr>
+												{% for r in rec %}
+													<td>
+														<input type="checkbox" name="kind" class="type" value="{{r.0}}">{{r.0}}&nbsp;
+													</td>
+												{% endfor %}
+											</tr>
+										{% endfor %}
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">Price-Range:</td>
+								<td>
+									<input type="radio" name="ranges" value="1" class="radio">
+									Below $50
+									<br>
+									<input type="radio" name="ranges" value="2" class="radio">
+									$50-$150
+									<br>
+									<input type="radio" name="ranges" value="3" class="radio">
+									$150-$250
+									<br>
+									<input type="radio" name="ranges" value="4" class="radio">
+									Above $250	
+								</td>
+							</tr>
+							<tr>
+								<td class="label">Preference:</td>
+								<td>
+									<input type="radio" name="preference" value="low" class="radio">Low-High
+									<br>
+									<input type="radio" name="preference" value="high" class="radio">High-Low
+									<br>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<button type="submit" id="subfilter">Submit</button>
+								</td>
+							</tr>
+						</form>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+body
+{
+	width: 1506px;
+	height: 745px;
+}
+.body
+{
+	height: 100%;
+	width: 100%;
+	background-image: url('../images/background/back.png');
+	background-size: cover;
+	float: right;
+}
+.forgotcont
+{
+	width: 800px;
+	height: 550px;
+	border: 2px solid black;
+	margin: 70px 0px 0px 370px;
+	background-image: url("../images/background/pets2a.png");
+	background-size: cover;
+	border-radius: 45px;
+	/*display: none;*/
+}
+.close
+{
+	float: left;
+	margin: 10px 0px 0px 15px;
+	font-size: 20px;
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+#topic
+{
+	margin-top: 30px;
+	font-size: 18px;
+	text-decoration: underline;
+	font-style: italic;
+}
+span
+{
+	color: red;
+	font-size: 14px;
+}
+.main
+{
+	/*background-color: yellow;*/
+	width: 80%;
+	height: 20%;
+	margin-top: 15%;
+}
+form
+{
+	margin-top: 10%;
+	height: 100%;
+	width: 80%;
+}
+table
+{
+	height: 100%;
+	width: 100%;
+	border-radius: 15px;
+	border: 1px solid black;
+	/*background-color: blue;*/
+}
+.label
+{
+	background-color: white;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	background-color: rgb(255,235,205);
+	width: 35%;
+	height: 50%;
+}
+.input
+{
+	/*background-color: red;*/
+	border-bottom: 1px solid black;
+	background-color: rgba(0,0,0,0.2);
+	width: 65%;
+	height: 50%;
+}
+.input input
+{
+	border: 0px;
+	background-color: inherit;
+	color: white;
+	height: 95%;
+	width: 99.3%;
+}
+button
+{
+	float: left;
+	color: black;
+	height: 25%;
+	width: 20%;
+	border-radius: 14px;
+	background: linear-gradient(brown,orange);
+	margin: 10px 0px 0px 25%;
+}
+button:hover
+{
+	box-shadow: 2px 2px black;
+	font-style: italic;
+	cursor: pointer;
+}
+#msg
+{
+	margin-top: 20%;
+	font-style: italic;
+	font-size: 20px;
+	color: white;
+	text-decoration: underline;
+}

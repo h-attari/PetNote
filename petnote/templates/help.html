@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+	<script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script>
+	<script src="{% static 'jquery/jquery.cycle.all.js' %}" rel="text/javascript"></script>
+	<script src="{% static 'js/script.js' %}" rel="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('#help').css('font-weight','bold');
+			$('#help').css('text-shadow','2px 2px white');
+			$('.helpcont').show(1000);
+			$('.helpcont').css('display','block');
+			$('#catag').click(function()
+			{
+				$('.species').toggle(1000);
+			});
+			$('#quotes').cycle(
+			{
+				fx:'curtainX',
+				timeout:2000,
+				speed:1000,
+			});
+		});
+	</script>
+</head>
+<body style="width: 1506px; height: 1600px;">
+	{% if f %}
+		<script type="text/javascript">
+			alert("Your Query has been submitted.");
+		</script>
+	{% endif %}
+	<div class="nav">
+		<div class="profile">
+			<div id="pimg">
+				<img src="{% static 'images/profile.png' %}">
+			</div>
+			<div id="pname">
+				{% if flag == 1 %}
+					<a href="/profile">{{name}} / {{user}}</a>
+				{% else %}
+					User/Customer
+				{% endif %}
+			</div>
+		</div>
+		<hr>
+		<div class="navlinks">
+			<ul>
+				<li><a id="catag">Catagories &#9660;</a></li>
+				<ul class="species">
+						<form method="post" action="/catag">
+							{% csrf_token %}
+							{% for j in req %}
+								<li><input value="{{j}}" name="catag" type="submit"></li>
+							{% endfor %}
+						</form>
+				</ul>
+				<li class="out"><a href="" style="float: left; margin-top: 10px;">Filters&nbsp;</a></li>
+				<li class="out"><a href=""><img src="{% static 'images/filter.png' %}" class="filterimg"></a></li>
+				<li class="out"><a href="/reward">My Rewards</a></li>
+				<li class="out"><a href="/order">My Orders</a></li>
+				<li class="out"><a href="/cart">My Cart</a></li>
+				{% if flag == 1 %}
+					<li class="out"><a href="/logout">Logout</a></li>
+				{% else %}
+					<li class="out"><a href="/login">Login/Sign-up</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+	<div class="cont">
+		<div class="header">
+			<img src="{% static 'images/logo.png' %}">
+		</div>
+		<div class="tab">
+			<div class="tablinks">
+				<table style="height: 100%; border: 0px; margin-top: 1px; float: left;">
+					<th>
+						<td><a href="/home" id="home">Home</a></td>
+						<td><a href="/about" id="about">About</a></td>
+						<td><a href="#footer" id="contact">Contact</a></td>
+						<td><a href="" id="help">Help</a></td>
+					</th>
+				</table>
+			</div>
+			<div id="crticon">
+				<a href="/cart" title="Cart"><img src="{% static 'images/cart.png' %}"></a>
+			</div>
+			<form action="/search" method="post">
+				{% csrf_token %}
+				<table cellpadding="0px" cellspacing="0px">
+					<tr>
+						<td class="search">
+							<input list="s" name="search" class="input" placeholder="   Type here...">
+							<datalist id="s">
+								{% for e in s %}
+									<option value="{{e}}">
+								{% endfor %}
+							</datalist>
+						</td>
+						<td style="background-color: #DEB887; border-radius: 0px 8px 8px 0px">
+							<button type="submit"><b>Search</b></button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div class="help">
+			<div class="helpcont">
+				<div class="topic">Help:</div>
+				<form action="/helptask" method="post">
+					{% csrf_token %}
+					<span id="error"></span>
+					<table cellpadding="0px" cellspacing="0px">
+						<tr>
+							<td class="label">Name:</td>
+							<td class="data">
+								<input type="text" name="name" required="" id="fn" style="border-radius: 0px 8px 0px 0px;" onchange="Name('fn')">
+							</td>
+						</tr>
+						<tr>
+							<td class="label">Last Name:</td>
+							<td class="data">
+								<input type="text" name="last" required="" id="ln" onchange="Name('ln')">
+							</td>
+						</tr>
+						<tr>
+							<td class="label">Email:</td>
+							<td class="data"><input type="email" name="mail" required="" id="mail" onchange="Mail('mail')"></td>
+						</tr>
+						<tr>
+							<td class="label">Mobile:</td>
+							<td class="data"><input type="text" name="mobile" id="mobile" onchange="Mobile('mobile')"></td>
+						</tr>
+						<tr>
+							<td class="label" style="border-radius: 0px 0px 0px 8px; height: 60px;">Query:</td>
+							<td class="data" style="border-radius: 0px 0px 8px 0px;height: 60px;"><textarea name="query"></textarea></td>
+						</tr>
+					</table>
+					<button type="submit">Submit</button>
+				</form>
+				<div class="msg">*We will get to you'r query as soon as possible.</div>
+			</div>
+		</div>
+		<div id="quotes" class="rows">
+			<img class="ad" src="{% static 'images/quotes/quote1.jpg' %}">
+			<img class="ad" src="{% static 'images/quotes/quote2.jpg' %}">
+			<img class="ad" src="{% static 'images/quotes/quote3.jpg' %}">
+			<img class="ad" src="{% static 'images/quotes/quote4.jpeg' %}">
+		</div>
+	</div>
+	<footer id="footer">
+		<div id="facebook">
+			<center>
+				<div class="note">Facebook</div>
+				<span><a href="." class="anote">www.facebook.com/petnote</a></span>
+			</center>
+		</div>
+		<div id="insta">
+			<center>
+				<div class="note">Insatgram</div>
+				<span><a href="." class="anote">www.instagram.com/pet_note</a></span>
+			</center>
+		</div>
+		<div id="twitter">
+			<center>
+				<div class="note">Twitter</div>
+				<span><a href="." class="anote">www.twitter.com/@petnote</a></span>
+			</center>
+		</div>
+		<div>
+			<center>
+				&copy;All rights are reserved to PetNote.INC
+			</center>
+		</div>
+	</footer>
+</body>
+</html>

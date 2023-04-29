@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reward.css' %}">
+	<script src="{% static 'js/script.js' %}" rel="text/javascript"></script>
+	<script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('.rewardcont').fadeIn(800);
+			$('.rewardcont').css("display","block");
+		});
+	</script>
+</head>
+<body>
+	<div class="body">
+		<div class="rewardcont">
+			<div id="back" align="center">
+				<div title="Close" class="close" onclick="goBack()">X</div>
+				<div id="topic">
+					Rewards
+				</div>
+				<div class="main">
+					{% if empty %}
+						<div id="empty">**No Rewards Available**</div>
+					{% else %}
+					<div id="table">
+						<table cellspacing="5px">
+							<tr>
+								<th class="no">S.No.</th>
+								<th class="detail">Detials</th>
+								<th class="valid">Validity</th>
+							</tr>
+							{% for e in reward %}
+								<tr>
+									<td class="no" align="center">{{e.no}}</td>
+									<td class="detail">
+										<table id="dt">
+											<tr>
+												<td>{{e.coupon}}</td>
+											</tr>
+											<tr>
+												<td>{{e.detail}}</td>
+											</tr>
+											<tr>
+												<td>Min. order amount: ${{e.amount}}</td>
+											</tr>
+										</table>
+									</td>
+									<td class="valid">
+										<table id="dt">
+											<tr>
+												<td align="center">Valid Upto:</td>
+											</tr>
+											<tr>
+												<td align="center">{{e.valid}}</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

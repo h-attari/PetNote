@@ -1,0 +1,144 @@
+body
+{
+	width: 1506px;
+	height: 745px;
+}
+.body
+{
+	height: 100%;
+	width: 100%;
+	background-image: url('../images/background/back.png');
+	background-size: cover;
+	float: right;
+}
+.detailcont
+{
+	width: 800px;
+	height: 550px;
+	border: 2px solid black;
+	margin: 70px 0px 0px 370px;
+	background-image: url("../images/background/more.jpg");
+	background-size: cover;
+	border-radius: 45px;
+	display: none;
+}
+#back
+{
+	width: 100%;
+	height: 100%;
+	border-radius: 42px;
+	background-color: rgba(255,255,255,0.7);
+	float: right;
+}
+.close
+{
+	float: left;
+	margin: 10px 0px 0px 15px;
+	font-size: 20px;
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+.main
+{
+	height: 93%;
+	width: 90%;
+	/*background-color: yellow;*/
+	margin-top: 34px;
+	overflow-y: auto;
+}
+#info
+{
+	height: 60%;
+	width: 100%;
+	/*background-color: green;*/
+}
+#image
+{
+	height: 100%;
+	width: 60%;
+	/*background-color: grey;*/
+	float: left;
+}
+#image img
+{
+	height: 100%;
+	width: 100%;
+}
+#data
+{
+	height: 100%;
+	width: 40%;
+	float: right;
+}
+table
+{
+	height: 100%;
+	width: 100%;
+}
+#name
+{
+	height: 20%;
+	font-size: 18px;
+	font-style: italic;
+	font-weight: bold;
+	/*background-color: brown;*/
+}
+#type
+{
+	height: 8%;
+	/*background-color: blue;*/
+}
+.label
+{
+	width: 55%;
+	height: 18%;
+	font-size: 14px;
+	/*background-color: red;*/
+}
+.ldata
+{
+	width: 45%;
+	height: 18%;
+	font-size: 15px;
+	font-style: italic;
+	/*background-color: black;*/
+}
+#discription
+{
+	width: 100%;
+	margin-top: 30px;
+}
+#topic
+{
+	margin-left: 20px;
+	font-size: 18px;
+	font-style: italic;
+	/*background-color:white; */
+}
+#para
+{
+	margin-left:10%;
+	margin-right: 2%;
+	/*background:khaki;*/
+}
+form
+{
+	width: 45%;
+	height: 7%;
+}
+button
+{
+	width: 100%;
+	height: 100%;
+	font-size: 16px;
+	border-radius: 45px;
+	color: black;
+	background: linear-gradient(#FF4500,#FFA500);
+}
+button:hover
+{
+	font-style: italic;
+	cursor: pointer;
+	box-shadow: 2px 2px black;
+}

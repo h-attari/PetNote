@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/admins.css' %}">
+	<script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script>
+	<script src="{% static 'jquery/jquery.cycle.all.js' %}" rel="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{});
+	</script>
+</head>
+<body style="width: 1506px; height: 738px;">
+	{% if flag %}
+		<div class="nav">
+			<div class="profile">
+				<div id="pimg">
+					<img src="{% static 'images/profile.png' %}">
+				</div>
+				<div id="pname">
+					{% if flag == 1 %}
+						<a href="/change">{{info.0}} / {{info.2}}</a>
+						<br>
+						<span>(Admin.)</span>
+					{% else %}
+						User/Customer
+					{% endif %}
+				</div>
+			</div>
+			<hr>
+			<div class="navlinks">
+				<ul>
+					<li class="out"><a href="/admins/queries">Queries</a></li>
+					<li class="out"><a href="">Orders</a></li>
+					{% if flag == 1 %}
+						<li class="out"><a href="/logout">Logout</a></li>
+					{% else %}
+						<li class="out"><a href="/login">Login/Sign-up</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+		<div class="cont">
+			<div align="center" id="topic">
+				Orders..!!
+			</div>
+			{% if empty %}
+				<div id="empty">
+					Orders List is Empty..!!
+				</div>
+			{% else %}
+				<table style="margin-top: 3%;">
+					<tr>
+						<th class="sno">S.No.</th>
+						<th class="odate">Date</th>
+						<th class="oid">Order Id</th>
+						<th class="od">Order Detail</th>
+						<th class="ou">User</th>
+					</tr>
+					{% for o in order %}
+						<tr>
+							<td class="sno" align="center">{{o.order_no}}.</td>
+							<td class="odate" align="center">{{o.order_date}}</td>
+							<td class="oid">{{o.order_id}}</td>
+							<td class="od">
+								{% for x in o.order_detail %}
+									<div>
+										{{x.0}}, {{x.2}}({{x.1}})<br>
+										Native: {{x.3}}
+									</div>
+									<br>
+								{% endfor %}
+							</td>
+							<td class="ou" align="center">
+								{{o.name}} {{o.last}}<br>({{o.user}})
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			{% endif %}
+		</div>
+	{% else %}
+		<div>Unauthorized Access..!!
+			<br>
+			Access Denied..
+		</div>
+	{% endif %}
+</body>
+</html>

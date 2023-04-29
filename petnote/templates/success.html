@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/success.css' %}">
+</head>
+<body>
+	<div class="body">
+		<div class="paycont">
+			<div id="back" align="left">
+				<div><a href="/" title="Close" class="close">X</a></div>
+				<div class="main" align="center">
+					<div>Item Order Successfully
+						<br>
+						(Payment Successful)
+						<br>
+						<br>
+						Order ID: {{order}}
+					</div>
+					<a href="/home"><button>OK</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

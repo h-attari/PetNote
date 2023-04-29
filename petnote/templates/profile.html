@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>PetNote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+	<script src="{% static 'js/script.js' %}" rel="text/javascript"></script>
+	<script src="{% static 'jquery/jquery-3.4.1.min.js' %}" rel="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('.infocont').show(800);
+			$('.infocont').css("display","block");
+		});
+	</script>
+</head>
+<body>
+	<div class="body">
+		<div class="infocont">
+			<div title="Close" class="close" onclick="goBack()">X</div>
+			<center>
+				<div class="topic">Info.</div>
+				<img src="{% static 'images/profile.png' %}" class="pimg">
+				<div id="name">{{name}} {{last}}</div>
+				<div class="data">
+					<table cellspacing="0px">
+						<tr>
+							<td class="label">Username:</td>
+							<td class="ldata">{{user}}</td>
+						</tr>
+						<tr>
+							<td class="label">Country:</td>
+							<td class="ldata">{{country}}</td>
+						</tr>
+						<tr>
+							<td class="label">Email:</td>
+							<td class="ldata">{{email}}</td>
+						</tr>
+						<tr>
+							<td class="label">Mobile:</td>
+							<td class="ldata">{{mobile}}</td>
+						</tr>
+					</table>
+				</div>
+				<div id="buttons">
+					<div id="edit">
+						<a href="/edit">Edit</a>
+					</div>
+					<div id="change">
+						<a href="/change">
+							Change Password
+						</a>
+					</div>
+				</div>
+			</center>
+		</div>
+	</div>
+</body>
+</html>

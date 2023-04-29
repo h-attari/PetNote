@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Petnote</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
+	<script src="{% static 'js/script.js' %}" rel="text/javascript"></script>
+	<script rel="text/javascript" src="{% static 'jquery/jquery-3.4.1.min.js' %}"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('.detailcont').fadeIn(1000);
+			$('.detailcont').css("display","block");
+		});
+	</script>
+</head>
+<body>
+	<div class="body">
+		<div class="detailcont">
+			<div id="back" align="center">
+				<div title="Close" class="close" onclick="goBack()">X</div>
+				<div class="main">
+					<div id="info">
+						<div id="image">
+							<img src="{% static rec.7 %}">
+						</div>
+						<div id="data">
+							<table cellspacing="0px">
+								<tr>
+									<td colspan="2" align="center" id="name">{{rec.0}}</td>
+								</tr>
+								<tr>
+									<td colspan="2" align="center" id="type">({{rec.6}} Type)</td>
+								</tr>
+								<tr>
+									<td class="label" align="center">Height(adult):</td>
+									<td class="ldata">{{rec.1}}</td>
+								</tr>
+								<tr>
+									<td class="label" align="center">Weight(adult):</td>
+									<td class="ldata">{{rec.2}}</td>
+								</tr>
+								<tr>
+									<td class="label" align="center">Expected Life-span:</td>
+									<td class="ldata">{{rec.3}}</td>
+								</tr>
+								<tr>
+									<td class="label" align="center">Price:</td>
+									<td class="ldata">
+										{% if rec.4 == rec.5 %}
+											${{rec.4}}
+										{% else %}
+											<strike>${{rec.4}}</strike> ${{rec.5}}
+										{% endif %}
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="discription" align="left">
+						<div id="topic">Description:</div>
+						<div id="para">
+							{% for e in descr %}
+								<p>{{e}}</p>
+							{% endfor %}
+						</div>
+
+					</div>
+					<form action="/add" method="post">
+						{% csrf_token %}
+						<button type="submit" value="{{rec.0}}" name="addcart">
+							Add to Cart
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
