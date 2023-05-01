@@ -11,7 +11,7 @@ isort==5.10.1
 lazy-object-proxy==1.7.1
 mccabe==0.7.0
 mypy-extensions==1.0.0
-mysql-connector-python==8.0.33
+mysql-connector-python==8.0.17
 pathspec==0.9.0
 platformdirs==2.4.0
 protobuf==3.19.6
