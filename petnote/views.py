@@ -72,7 +72,7 @@ def home(req):
         user = n[1]
         return render(
             req,
-            "home.html",
+            "home/home.html",
             {
                 "flag": flag,
                 "name": name,
@@ -82,11 +82,11 @@ def home(req):
                 "s": s,
             },
         )
-    return render(req, "home.html", {"flag": flag, "req": l, "arec": final_list, "s": s})
+    return render(req, "home/home.html", {"flag": flag, "req": l, "arec": final_list, "s": s})
 
 
 def login(req):
-    return render(req, "login.html")
+    return render(req, "users/login.html")
 
 
 def register(req):
@@ -101,7 +101,7 @@ def register(req):
     for e in rec:
         lst.append(e[0])
     conn.close()
-    return render(req, "signup.html", {"list": lst})
+    return render(req, "users/signup.html", {"list": lst})
 
 
 def register_task(req):
@@ -170,7 +170,7 @@ def login_task(req):
 
 
 def change(req):
-    return render(req, "change.html")
+    return render(req, "users/change.html")
 
 
 def change_task(req):
@@ -246,7 +246,7 @@ def profile(req):
             country = x
     return render(
         req,
-        "profile.html",
+        "users/profile.html",
         {
             "name": name,
             "last": last,
@@ -291,7 +291,7 @@ def edit(req):
     conn.close()
     return render(
         req,
-        "edit.html",
+        "users/edit.html",
         {
             "name": name,
             "last": last,
@@ -426,7 +426,7 @@ def cart(req):
     conn.close()
     return render(
         req,
-        "cart.html",
+        "order/cart.html",
         {
             "object": o,
             "empty": empty,
@@ -481,7 +481,7 @@ def reward(req):
             o.append(obj)
             i += 1
     conn.close()
-    return render(req, "reward.html", {"reward": o, "empty": empty})
+    return render(req, "users/reward.html", {"reward": o, "empty": empty})
 
 
 class Order:
@@ -565,7 +565,7 @@ def order(req):
             obj.input(e, data)
             o.append(obj)
     conn.close()
-    return render(req, "order.html", {"order": o, "empty": empty})
+    return render(req, "order/order.html", {"order": o, "empty": empty})
 
 
 def about(req):
@@ -594,9 +594,9 @@ def about(req):
         name = n[0]
         user = n[1]
         return render(
-            req, "about.html", {"flag": flag, "name": name, "user": user, "req": l}
+            req, "home/about.html", {"flag": flag, "name": name, "user": user, "req": l}
         )
-    return render(req, "about.html", {"flag": flag, "req": l})
+    return render(req, "home/about.html", {"flag": flag, "req": l})
 
 
 def request_help(req):
@@ -630,10 +630,10 @@ def request_help(req):
         user = n[1]
         return render(
             req,
-            "help.html",
+            "home/help.html",
             {"flag": flag, "name": name, "user": user, "req": l, "f": f},
         )
-    return render(req, "help.html", {"flag": flag, "req": l, "f": f})
+    return render(req, "home/help.html", {"flag": flag, "req": l, "f": f})
 
 
 def search_filter(req):
@@ -670,7 +670,7 @@ def search_filter(req):
     if len(lst) > 0:
         final_list.append(lst)
     conn.close()
-    return render(req, "filter.html", {"animal": animal, "x": x, "atype": final_list})
+    return render(req, "search/filter.html", {"animal": animal, "x": x, "atype": final_list})
 
 
 def search(req):
@@ -1050,7 +1050,7 @@ def search(req):
     if flag == 1:
         return render(
             req,
-            "search.html",
+            "search/search.html",
             {
                 "flag": flag,
                 "name": name,
@@ -1061,7 +1061,7 @@ def search(req):
             },
         )
     return render(
-        req, "search.html", {"flag": flag, "req": l, "arec": final_list, "box": box}
+        req, "search/search.html", {"flag": flag, "req": l, "arec": final_list, "box": box}
     )
 
 
@@ -1081,7 +1081,7 @@ def pay(req):
     rec = cr.fetchone()
     country = rec[0]
     return render(
-        req, "pay.html", {"amount": amount, "address": address, "country": country}
+        req, "order/pay.html", {"amount": amount, "address": address, "country": country}
     )
 
 
@@ -1173,7 +1173,7 @@ def success(req):
     cr.execute(qu, v)
     conn.commit()
     conn.close()
-    return render(req, "success.html", {"order": order_id})
+    return render(req, "order/success.html", {"order": order_id})
 
 
 def detail(req):
@@ -1203,7 +1203,7 @@ def detail(req):
             descr.append(line)
         data_file.close()
     conn.close()
-    return render(req, "detail.html", {"rec": rec, "descr": descr})
+    return render(req, "search/detail.html", {"rec": rec, "descr": descr})
 
 
 def add_to_cart(req):
@@ -1236,7 +1236,7 @@ def add_to_cart(req):
 
 
 def forgot(req):
-    return render(req, "forgot.html")
+    return render(req, "users/forgot.html")
 
 
 def forgot_task(req):
@@ -1257,7 +1257,7 @@ def forgot_task(req):
     user = rec[4]
     if rec is None:
         f = 0
-        return render(req, "forgot.html", {"f": f})
+        return render(req, "users/forgot.html", {"f": f})
     server = smtplib.SMTP("smtp.gmail.com", 587)
     html = """
     <html>
@@ -1338,9 +1338,9 @@ def admin_queries(req):
         if len(lst) > 0:
             final_list.append(lst)
         return render(
-            req, "query.html", {"flag": flag, "info": info, "finallist": final_list}
+            req, "admin/query.html", {"flag": flag, "info": info, "finallist": final_list}
         )
-    return render(req, "query.html", {"flag": flag})
+    return render(req, "admin/query.html", {"flag": flag})
 
 
 def admin_orders(req):
@@ -1413,10 +1413,10 @@ def admin_orders(req):
                 j += 1
         return render(
             req,
-            "admin_orders.html",
+            "admin/admin_orders.html",
             {"flag": flag, "info": info, "order": o, "empty": empty},
         )
-    return render(req, "admin_orders.html", {"flag": flag})
+    return render(req, "admin/admin_orders.html", {"flag": flag})
 
 
 def query_reply(req):
@@ -1429,7 +1429,7 @@ def query_reply(req):
     v = (r,)
     cr.execute(qu, v)
     rec = cr.fetchone()
-    return render(req, "reply.html", {"r": rec})
+    return render(req, "admin/reply.html", {"r": rec})
 
 
 def reply_task(req):
