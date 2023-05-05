@@ -4,7 +4,13 @@ from datetime import date
 from email.mime.text import MIMEText
 
 import mysql.connector as mysql
+from django.conf import settings
 from django.shortcuts import redirect, render
+
+DB_NAME = settings.DB_NAME
+DB_USER = settings.DB_USER
+DB_PASS = settings.DB_PASS
+DB_HOST = settings.DB_HOST
 
 
 def index(req):
@@ -15,7 +21,7 @@ def home(req):
     flag = 0
     s = []
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select name, user from Register where flag='1'"
@@ -91,7 +97,7 @@ def login(req):
 
 def register(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select country_name from Country"
@@ -106,7 +112,7 @@ def register(req):
 
 def register_task(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     name = req.POST.get("fname")
     last = req.POST.get("lname")
@@ -133,7 +139,7 @@ def register_task(req):
 
 def login_task(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     radio = req.POST.get("choose")
@@ -175,7 +181,7 @@ def change(req):
 
 def change_task(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     new = req.POST.get("password")
@@ -199,7 +205,7 @@ def change_task(req):
 
 def logout(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select user from Register where flag='1'"
@@ -221,7 +227,7 @@ def logout(req):
 
 def profile(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select name,last_name,user,email,mobile from Register where flag='1'"
@@ -260,7 +266,7 @@ def profile(req):
 
 def edit(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select name,last_name,user,email,mobile from Register where flag='1'"
@@ -306,7 +312,7 @@ def edit(req):
 
 def edit_task(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     user = req.POST.get("user")
@@ -347,7 +353,7 @@ def cart(req):
     total = 0
     empty = 0
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select * from Register where flag='1'"
@@ -458,7 +464,7 @@ def reward(req):
     empty = 0
     o = []
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select * from Register where flag='1'"
@@ -511,7 +517,7 @@ def order(req):
     empty = 0
     o = []
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select * from Register where flag='1'"
@@ -571,7 +577,7 @@ def order(req):
 def about(req):
     flag = 0
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select name, user from Register where flag='1'"
@@ -606,7 +612,7 @@ def request_help(req):
     print(f)
     flag = 0
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select name, user from Register where flag='1'"
@@ -641,7 +647,7 @@ def search_filter(req):
     if x is None:
         x = ""
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     animal = []
@@ -677,7 +683,7 @@ def search(req):
     flag = 0
     box = 0
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select name, user from Register where flag='1'"
@@ -1068,7 +1074,7 @@ def search(req):
 def pay(req):
     amount = req.POST.get("amount")
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select address from Register where flag='1'"
@@ -1087,7 +1093,7 @@ def pay(req):
 
 def success(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select r_id,name,last_name from Register where flag=1"
@@ -1179,7 +1185,7 @@ def success(req):
 def detail(req):
     animal = req.POST.get("more")
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select animal_name,height,weight,lifespan,price,discount,"\
@@ -1208,7 +1214,7 @@ def detail(req):
 
 def add_to_cart(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     animal = req.POST.get("addcart")
@@ -1241,7 +1247,7 @@ def forgot(req):
 
 def forgot_task(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     user = req.POST.get("user")
@@ -1290,7 +1296,7 @@ def help_task(req):
     mobile = req.POST.get("mobile")
     query = req.POST.get("query")
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "insert into Query(name,last_name,email,mobile,query) "\
@@ -1305,7 +1311,7 @@ def help_task(req):
 def admin_queries(req):
     flag = 0
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select name,last_name,user from Admin where flag=1"
@@ -1346,7 +1352,7 @@ def admin_queries(req):
 def admin_orders(req):
     flag = 0
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor(buffered=True)
     qu = "select name,last_name,user from Admin where flag=1"
@@ -1422,7 +1428,7 @@ def admin_orders(req):
 def query_reply(req):
     r = req.POST.get("reply")
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     qu = "select * from Query where sno=%s"
@@ -1434,7 +1440,7 @@ def query_reply(req):
 
 def reply_task(req):
     conn = mysql.connect(
-        host="localhost", user="root", password="root", database="Lucifer"
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
     )
     cr = conn.cursor()
     reply = req.POST.get("rep")
