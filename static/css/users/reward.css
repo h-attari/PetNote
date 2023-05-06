@@ -7,18 +7,18 @@ body
 {
 	height: 100%;
 	width: 100%;
-	background-image: url('../images/background/back.png');
+	background-image: url('../../images/background/back.png');
 	background-size: cover;
 	float: right;
 }
-.ordercont
+.rewardcont
 {
 	width: 800px;
 	height: 550px;
 	border: 2px solid black;
 	margin: 70px 0px 0px 370px;
-	background-image: url("../images/background/order.jpg");
-	background-size: cover;
+	background-image: url("../../images/background/reward.jpg");
+	/*background-size: cover;*/
 	border-radius: 45px;
 	display: none;
 }
@@ -48,10 +48,10 @@ body
 }
 .main
 {
-	height: 86%;
-	width: 95%;
+	height: 83%;
+	width: 90%;
 	/*background-color: yellow;*/
-	margin-top: 20px;
+	margin-top: 40px;
 	overflow: auto;
 }
 #empty
@@ -60,30 +60,33 @@ body
 	font-size: 24px;
 	font-style: italic;
 }
+#table
+{
+	width: 100%;
+}
 table
 {
 	width: 100%;
 }
-.orderid
+.no
 {
-	width: 43%;
-	/*background-color: blue;*/
+	width: 10%;
+	/*background-color: green;*/
 	border-bottom: 1px solid black;
 }
-.orderdetail
+.detail
 {
-	width: 37%;
+	width: 60%;
+	/*background-color: grey;*/
+	border-bottom: 1px solid black;
+}
+.valid
+{
+	width: 30%;
 	/*background-color: red;*/
 	border-bottom: 1px solid black;
 }
-.orderdetail div
+#dt
 {
-	margin-top: 4px;
-	/*background-color: white;*/
-}
-.orderdate
-{
-	width: 20%;
-	/*background-color: grey;*/
-	border-bottom: 1px solid black;
+	width: 100%;
 }
