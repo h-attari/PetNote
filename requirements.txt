@@ -4,7 +4,7 @@ black==22.8.0
 click==8.0.4
 dataclasses==0.8
 dill==0.3.4
-Django==3.2.18
+Django==3.2.19
 flake8==5.0.4
 importlib-metadata==4.2.0
 isort==5.10.1
