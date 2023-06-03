@@ -610,7 +610,6 @@ def request_help(req):
     f = req.GET.get("f")
     if f is None:
         f = 0
-    print(f)
     flag = 0
     conn = mysql.connect(
         host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
@@ -875,7 +874,6 @@ def search(req):
                     if ranges == "1":
                         v = (e, 0, 50)
                     elif ranges == "2":
-                        print("execute")
                         v = (e, 50, 150)
                     elif ranges == "3":
                         v = (e, 150, 250)
@@ -1218,7 +1216,6 @@ def add_to_cart(req):
     )
     cr = conn.cursor()
     animal = req.POST.get("addcart")
-    print(animal)
     qu = "select animal_id from Animal where animal_name=%s"
     v = (animal,)
     cr.execute(qu, v)
@@ -1283,8 +1280,8 @@ def forgot_task(req):
     )
     msg = MIMEText(html, "html")
     server.starttls()
-    server.login("<Enter your email(gmail)>", "<Enter password>")
-    server.sendmail("<Enter your email(gmail)>", mail, msg.as_string())
+    server.login(settings.EMAIL_ID, settings.EMAIL_PASSWORD)
+    server.sendmail(settings.EMAIL_ID, mail, msg.as_string())
     server.quit()
     return render(req, "sent.html")
 
@@ -1475,8 +1472,8 @@ def reply_task(req):
     )
     msg = MIMEText(html, "html")
     server.starttls()
-    server.login("<Enter your email(gmail)>", "<Enter your password>")
-    server.sendmail("<Enter your email(gmail)>", rec[3], msg.as_string())
+    server.login(settings.EMAIL_ID, settings.EMAIL_PASSWORD)
+    server.sendmail(settings.EMAIL_ID, rec[3], msg.as_string())
     server.quit()
     qu = "delete from Query where sno=%s"
     v = (r,)
