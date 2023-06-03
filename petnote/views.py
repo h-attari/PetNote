@@ -11,6 +11,7 @@ DB_NAME = settings.DB_NAME
 DB_USER = settings.DB_USER
 DB_PASS = settings.DB_PASS
 DB_HOST = settings.DB_HOST
+BASE_DIR = settings.BASE_DIR
 
 
 def index(req):
@@ -1201,8 +1202,7 @@ def detail(req):
     cr.execute(qu, v)
     temp = cr.fetchone()
     rec[6] = temp[0]
-    module_dir = os.path.dirname(__file__)
-    file_path = os.path.join(module_dir, rec[8])
+    file_path = os.path.join(BASE_DIR, rec[8])
     with open(file_path, "r") as data_file:
         descr = []
         for line in data_file:
