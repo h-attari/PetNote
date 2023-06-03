@@ -137,3 +137,6 @@ DB_NAME = env_var("DB_NAME")
 DB_USER = env_var("DB_USER")
 DB_PASS = env_var("DB_PASS")
 DB_HOST = env_var("DB_HOST")
+
+EMAIL_ID = env_var("EMAIL_ID")
+EMAIL_PASSWORD = env_var("EMAIL_PASSWORD")
