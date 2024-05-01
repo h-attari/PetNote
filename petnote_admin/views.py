@@ -1,45 +1,11 @@
-import smtplib
-from email.mime.text import MIMEText
-
-import mysql.connector as mysql
-from django.conf import settings
 from django.shortcuts import redirect, render
 
-DB_NAME = settings.DB_NAME
-DB_USER = settings.DB_USER
-DB_PASS = settings.DB_PASS
-DB_HOST = settings.DB_HOST
-BASE_DIR = settings.BASE_DIR
-
-
-class Order:
-    def __init__(self):
-        self.order_no = None
-        self.name = None
-        self.last = None
-        self.user = None
-        self.order_id = None
-        self.order_detail = None
-        self.order_date = None
-
-    def input(self, e, d, n=0, r=(0, 0, 0)):
-        self.order_no = n
-        self.name = r[0]
-        self.last = r[1]
-        self.user = r[2]
-        self.order_id = e
-        self.order_detail = d
-        month = self.order_id[0:3]
-        year = self.order_id[3:7]
-        day = self.order_id[7:9]
-        self.order_date = month + " " + day + " " + year
+from .utils import (Order, get_database_connection, send_email)
 
 
 def admin_queries(req):
     flag = 0
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select name,last_name,user from Admin where flag=1"
     cr.execute(qu)
@@ -78,9 +44,7 @@ def admin_queries(req):
 
 def admin_orders(req):
     flag = 0
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor(buffered=True)
     qu = "select name,last_name,user from Admin where flag=1"
     cr.execute(qu)
@@ -154,9 +118,7 @@ def admin_orders(req):
 
 def query_reply(req):
     r = req.POST.get("reply")
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select * from Query where sno=%s"
     v = (r,)
@@ -166,9 +128,7 @@ def query_reply(req):
 
 
 def reply_task(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     reply = req.POST.get("rep")
     r = req.POST.get("query")
@@ -176,35 +136,7 @@ def reply_task(req):
     v = (r,)
     cr.execute(qu, v)
     rec = cr.fetchone()
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    html = """
-    <html>
-        <body>
-            <div style="margin-top:30px; font-size:18px;">
-                Hello <i>{0} {1}</i>..!!
-                <br><br>
-                <i>Mobile:</i> {2}
-                <br>
-                <i>Email:</i> {3}
-            </div>
-            <div style="margin-top:30px; font-size:16px;">
-                Answer to your query:
-                <br>
-                {4}
-            </div>
-            <div style="margin-top:30px; font-size:18px;">
-                <i>Reply:</i>
-                <p>{5}</p>
-            </div>
-        </body>
-    </html>""".format(
-        rec[1], rec[2], rec[4], rec[3], rec[5], reply
-    )
-    msg = MIMEText(html, "html")
-    server.starttls()
-    server.login(settings.EMAIL_ID, settings.EMAIL_PASSWORD)
-    server.sendmail(settings.EMAIL_ID, rec[3], msg.as_string())
-    server.quit()
+    send_email(rec, reply)
     qu = "delete from Query where sno=%s"
     v = (r,)
     cr.execute(qu, v)
