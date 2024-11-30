@@ -1,0 +1,39 @@
+version: "0.1"
+
+services:
+    app:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        ports:
+            - "8000:8000"
+        volumes:
+          - .:/app
+          - ./start.sh:/app/start.sh
+          - ./supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+        env_file: .env
+        environment:
+          DB_HOST: petnote-db
+        command: ["/usr/bin/supervisord"]
+        depends_on:
+          db:
+            condition: service_healthy
+
+    db:
+        image: mysql:latest
+        volumes:
+            - db_data:/var/lib/mysql
+        hostname: petnote-db
+        env_file:
+          - .env
+        ports:
+            - "3306:3306"
+        healthcheck:
+          test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+          interval: 2s
+          timeout: 3s
+          retries: 40
+
+volumes:
+  db_data:
+    name: db_data
