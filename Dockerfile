@@ -2,7 +2,8 @@ FROM python:3.6
 
 # Install supervisor
 RUN apt-get update && \
-    apt-get install -y supervisor
+    apt-get install -y supervisor && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY . /app
 WORKDIR /app
