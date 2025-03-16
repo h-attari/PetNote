@@ -37,7 +37,21 @@ services:
             retries: 40
         networks:
             - app-network
+            - db-network
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        platform: linux/amd64
+        restart: always
+        ports:
+            - "8080:80"
+        environment:
+            PMA_HOST: petnote-db
+        networks:
+            - db-network
 
 networks:
     app-network:
+        driver: bridge
+    db-network:
         driver: bridge
