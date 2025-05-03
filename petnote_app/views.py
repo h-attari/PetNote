@@ -3,14 +3,11 @@ import smtplib
 from datetime import date
 from email.mime.text import MIMEText
 
-import mysql.connector as mysql
 from django.conf import settings
 from django.shortcuts import redirect, render
 
-DB_NAME = settings.DB_NAME
-DB_USER = settings.DB_USER
-DB_PASS = settings.DB_PASS
-DB_HOST = settings.DB_HOST
+from core.utils import get_database_connection
+
 BASE_DIR = settings.BASE_DIR
 
 
@@ -21,9 +18,7 @@ def index(req):
 def home(req):
     flag = 0
     s = []
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select name, user from Register where flag='1'"
     cr.execute(qu)
@@ -97,9 +92,7 @@ def login(req):
 
 
 def register(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select country_name from Country"
     cr.execute(qu)
@@ -112,9 +105,7 @@ def register(req):
 
 
 def register_task(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     name = req.POST.get("fname")
     last = req.POST.get("lname")
     user = req.POST.get("user")
@@ -130,7 +121,7 @@ def register_task(req):
     rec = cr.fetchone()
     country = rec[0]
     qu = "insert into Register(name,last_name,user,password,email,country,mobile,address) " \
-         "values('{0}','{1}','{2}','{3}','{4}',{5},'{6}','{7}')".format(
+            "values('{0}','{1}','{2}','{3}','{4}',{5},'{6}','{7}')".format(
             name, last, user, password, email, country, mobile, address)
     cr.execute(qu)
     conn.commit()
@@ -139,9 +130,7 @@ def register_task(req):
 
 
 def login_task(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     radio = req.POST.get("choose")
     u = req.POST.get("user")
@@ -181,9 +170,7 @@ def change(req):
 
 
 def change_task(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     new = req.POST.get("password")
     qu = "select * from Register where flag=1"
@@ -205,9 +192,7 @@ def change_task(req):
 
 
 def logout(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select user from Register where flag='1'"
     cr.execute(qu)
@@ -227,9 +212,7 @@ def logout(req):
 
 
 def profile(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select name,last_name,user,email,mobile from Register where flag='1'"
     cr.execute(qu)
@@ -244,7 +227,7 @@ def profile(req):
     email = l[3]
     mobile = l[4]
     qu = "select country_name from Country where country_id=" \
-         "(select country from Register where flag=1);"
+        "(select country from Register where flag=1);"
     cr.execute(qu)
     rec = cr.fetchall()
     conn.close()
@@ -266,9 +249,7 @@ def profile(req):
 
 
 def edit(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select name,last_name,user,email,mobile from Register where flag='1'"
     cr.execute(qu)
@@ -283,7 +264,7 @@ def edit(req):
     email = l[3]
     mobile = l[4]
     qu = "select country_name from Country where country_id=" \
-         "(select country from Register where flag=1);"
+        "(select country from Register where flag=1);"
     cr.execute(qu)
     rec = cr.fetchall()
     for e in rec:
@@ -312,9 +293,7 @@ def edit(req):
 
 
 def edit_task(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     user = req.POST.get("user")
     country = req.POST.get("country")
@@ -353,9 +332,7 @@ def cart(req):
     charges = 0
     total = 0
     empty = 0
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select * from Register where flag='1'"
     cr.execute(qu)
@@ -368,7 +345,7 @@ def cart(req):
     if q is not None:
         q = int(q)
         qu = "select cart_item,quantity from Cart where cart_item=" \
-             "(select animal_id from Animal where animal_name=%s)"
+            "(select animal_id from Animal where animal_name=%s)"
         v = (a,)
         cr.execute(qu, v)
         rec = cr.fetchone()
@@ -464,9 +441,7 @@ class Reward:
 def reward(req):
     empty = 0
     o = []
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select * from Register where flag='1'"
     cr.execute(qu)
@@ -475,7 +450,7 @@ def reward(req):
         conn.close()
         return redirect("/login")
     qu = "select coupon,reward_detail,min_amount,date from " \
-         "Rewards where r_id=(select r_id from Register where flag='1')"
+        "Rewards where r_id=(select r_id from Register where flag='1')"
     cr.execute(qu)
     rec = cr.fetchall()
     if not rec:
@@ -517,9 +492,7 @@ class Order:
 def order(req):
     empty = 0
     o = []
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select * from Register where flag='1'"
     cr.execute(qu)
@@ -577,9 +550,7 @@ def order(req):
 
 def about(req):
     flag = 0
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select name, user from Register where flag='1'"
     cr.execute(qu)
@@ -611,9 +582,7 @@ def request_help(req):
     if f is None:
         f = 0
     flag = 0
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select name, user from Register where flag='1'"
     cr.execute(qu)
@@ -646,9 +615,7 @@ def search_filter(req):
     x = req.POST.get("animal")
     if x is None:
         x = ""
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     animal = []
     qu = "select species_name from Species"
@@ -657,7 +624,7 @@ def search_filter(req):
     for e in rec:
         animal.append(e[0])
     qu = "select type from Type where species=" \
-         "(select species_id from Species where species_name=%s)"
+        "(select species_id from Species where species_name=%s)"
     v = (x,)
     cr.execute(qu, v)
     a_type = cr.fetchall()
@@ -682,9 +649,7 @@ def search_filter(req):
 def search(req):
     flag = 0
     box = 0
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select name, user from Register where flag='1'"
     cr.execute(qu)
@@ -713,7 +678,7 @@ def search(req):
     preference = req.POST.get("preference")
     if catag is not None:
         qu = "select animal_name,price,discount,image from " \
-             "Animal where species=(select species_id from Species where species_name=%s)"
+            "Animal where species=(select species_id from Species where species_name=%s)"
         v = (catag,)
         cr.execute(qu, v)
         temp = cr.fetchall()
@@ -742,9 +707,9 @@ def search(req):
     elif search is not None:
         qa = "select animal_name,price,discount,image from Animal where animal_name=%s"
         qs = "select animal_name,price,discount,image from Animal where species=" \
-             "(select species_id from Species where species_name=%s)"
+            "(select species_id from Species where species_name=%s)"
         qt = "select animal_name,price,discount,image from Animal where type=" \
-             "(select type_id from Type where type=%s)"
+            "(select type_id from Type where type=%s)"
         v = (search,)
         cr.execute(qa, v)
         qarec = cr.fetchall()
@@ -828,8 +793,8 @@ def search(req):
             for e in kind:
                 if ranges is not None and preference is not None:
                     qu = "select animal_name,price,discount,image from Animal " \
-                         "where type=(select type_id from Type where type=%s) " \
-                         "and price between %s and %s"
+                        "where type=(select type_id from Type where type=%s) " \
+                        "and price between %s and %s"
                     if ranges == "1":
                         v = (e, 0, 50)
                     elif ranges == "2":
@@ -869,8 +834,8 @@ def search(req):
                             j += 1
                 elif ranges is not None:
                     qu = "select animal_name,price,discount,image from Animal " \
-                         "where type=(select type_id from Type where type=%s) " \
-                         "and price between %s and %s"
+                        "where type=(select type_id from Type where type=%s) " \
+                        "and price between %s and %s"
                     if ranges == "1":
                         v = (e, 0, 50)
                     elif ranges == "2":
@@ -889,7 +854,7 @@ def search(req):
                         arec.append(e)
                 elif preference is not None:
                     qu = "select animal_name,price,discount,image from Animal " \
-                         "where type=(select type_id from Type where type=%s)"
+                        "where type=(select type_id from Type where type=%s)"
                     v = (e,)
                     cr.execute(qu, v)
                     rec = cr.fetchall()
@@ -922,7 +887,7 @@ def search(req):
                             j += 1
                 else:
                     qu = "select animal_name,price,discount,image from Animal " \
-                         "where type=(select type_id from Type where type=%s)"
+                        "where type=(select type_id from Type where type=%s)"
                     v = (e,)
                     cr.execute(qu, v)
                     rec = cr.fetchall()
@@ -956,7 +921,7 @@ def search(req):
                 if ranges is not None and preference is not None:
                     if preference == "low":
                         qu = "select animal_name,price,discount,image from Animal " \
-                             "where species=%s and price between %s and %s order by price asc"
+                            "where species=%s and price between %s and %s order by price asc"
                         if ranges == "1":
                             v = (x, 0, 50)
                         elif ranges == "2":
@@ -975,7 +940,7 @@ def search(req):
                             arec.append(e)
                     else:
                         qu = "select animal_name,price,discount,image from Animal " \
-                             "where species=%s and price between %s and %s order by price desc"
+                            "where species=%s and price between %s and %s order by price desc"
                         if ranges == "1":
                             v = (x, 0, 50)
                         elif ranges == "2":
@@ -1072,9 +1037,7 @@ def search(req):
 
 def pay(req):
     amount = req.POST.get("amount")
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select address from Register where flag='1'"
     cr.execute(qu)
@@ -1091,9 +1054,7 @@ def pay(req):
 
 
 def success(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select r_id,name,last_name from Register where flag=1"
     cr.execute(qu)
@@ -1183,9 +1144,7 @@ def success(req):
 
 def detail(req):
     animal = req.POST.get("more")
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "select animal_name,height,weight,lifespan,price,discount,"\
         "type,image,descr from Animal where animal_name=%s"
@@ -1211,9 +1170,7 @@ def detail(req):
 
 
 def add_to_cart(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     animal = req.POST.get("addcart")
     qu = "select animal_id from Animal where animal_name=%s"
@@ -1243,9 +1200,7 @@ def forgot(req):
 
 
 def forgot_task(req):
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     user = req.POST.get("user")
     mail = req.POST.get("mail")
@@ -1292,9 +1247,7 @@ def help_task(req):
     mail = req.POST.get("mail")
     mobile = req.POST.get("mobile")
     query = req.POST.get("query")
-    conn = mysql.connect(
-        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
-    )
+    conn = get_database_connection()
     cr = conn.cursor()
     qu = "insert into Query(name,last_name,email,mobile,query) "\
         "values('{0}','{1}','{2}','{3}','{4}')".format(

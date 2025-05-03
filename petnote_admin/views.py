@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 
-from .utils import (Order, get_database_connection, send_email)
+from petnote_admin.utils import (Order, send_email)
+from core.utils import get_database_connection
 
 
 def admin_queries(req):
