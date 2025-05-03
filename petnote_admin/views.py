@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 
-from petnote_admin.utils import (Order, send_email)
 from core.utils import get_database_connection
+from petnote_admin.utils import Order, send_email
 
 
 def admin_queries(req):
@@ -38,7 +38,9 @@ def admin_queries(req):
         if len(lst) > 0:
             final_list.append(lst)
         return render(
-            req, "admin/query.html", {"flag": flag, "info": info, "finallist": final_list}
+            req,
+            "admin/query.html",
+            {"flag": flag, "info": info, "finallist": final_list},
         )
     return render(req, "admin/query.html", {"flag": flag})
 
