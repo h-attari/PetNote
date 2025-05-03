@@ -1,5 +1,5 @@
-from django.conf import settings
 import mysql.connector as mysql
+from django.conf import settings
 
 DB_NAME = settings.DB_NAME
 DB_USER = settings.DB_USER

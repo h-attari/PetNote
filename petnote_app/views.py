@@ -84,7 +84,9 @@ def home(req):
                 "s": s,
             },
         )
-    return render(req, "home/home.html", {"flag": flag, "req": l, "arec": final_list, "s": s})
+    return render(
+        req, "home/home.html", {"flag": flag, "req": l, "arec": final_list, "s": s}
+    )
 
 
 def login(req):
@@ -120,9 +122,12 @@ def register_task(req):
     cr.execute(qu, v)
     rec = cr.fetchone()
     country = rec[0]
-    qu = "insert into Register(name,last_name,user,password,email,country,mobile,address) " \
-            "values('{0}','{1}','{2}','{3}','{4}',{5},'{6}','{7}')".format(
-            name, last, user, password, email, country, mobile, address)
+    qu = (
+        "insert into Register(name,last_name,user,password,email,country,mobile,address) "
+        "values('{0}','{1}','{2}','{3}','{4}',{5},'{6}','{7}')".format(
+            name, last, user, password, email, country, mobile, address
+        )
+    )
     cr.execute(qu)
     conn.commit()
     conn.close()
@@ -226,8 +231,10 @@ def profile(req):
     user = l[2]
     email = l[3]
     mobile = l[4]
-    qu = "select country_name from Country where country_id=" \
+    qu = (
+        "select country_name from Country where country_id="
         "(select country from Register where flag=1);"
+    )
     cr.execute(qu)
     rec = cr.fetchall()
     conn.close()
@@ -263,8 +270,10 @@ def edit(req):
     user = l[2]
     email = l[3]
     mobile = l[4]
-    qu = "select country_name from Country where country_id=" \
+    qu = (
+        "select country_name from Country where country_id="
         "(select country from Register where flag=1);"
+    )
     cr.execute(qu)
     rec = cr.fetchall()
     for e in rec:
@@ -344,8 +353,10 @@ def cart(req):
     q = req.POST.get("q")
     if q is not None:
         q = int(q)
-        qu = "select cart_item,quantity from Cart where cart_item=" \
+        qu = (
+            "select cart_item,quantity from Cart where cart_item="
             "(select animal_id from Animal where animal_name=%s)"
+        )
         v = (a,)
         cr.execute(qu, v)
         rec = cr.fetchone()
@@ -449,8 +460,10 @@ def reward(req):
     if not rec:
         conn.close()
         return redirect("/login")
-    qu = "select coupon,reward_detail,min_amount,date from " \
+    qu = (
+        "select coupon,reward_detail,min_amount,date from "
         "Rewards where r_id=(select r_id from Register where flag='1')"
+    )
     cr.execute(qu)
     rec = cr.fetchall()
     if not rec:
@@ -623,8 +636,10 @@ def search_filter(req):
     rec = cr.fetchall()
     for e in rec:
         animal.append(e[0])
-    qu = "select type from Type where species=" \
+    qu = (
+        "select type from Type where species="
         "(select species_id from Species where species_name=%s)"
+    )
     v = (x,)
     cr.execute(qu, v)
     a_type = cr.fetchall()
@@ -643,7 +658,9 @@ def search_filter(req):
     if len(lst) > 0:
         final_list.append(lst)
     conn.close()
-    return render(req, "search/filter.html", {"animal": animal, "x": x, "atype": final_list})
+    return render(
+        req, "search/filter.html", {"animal": animal, "x": x, "atype": final_list}
+    )
 
 
 def search(req):
@@ -677,8 +694,10 @@ def search(req):
     ranges = req.POST.get("ranges")
     preference = req.POST.get("preference")
     if catag is not None:
-        qu = "select animal_name,price,discount,image from " \
+        qu = (
+            "select animal_name,price,discount,image from "
             "Animal where species=(select species_id from Species where species_name=%s)"
+        )
         v = (catag,)
         cr.execute(qu, v)
         temp = cr.fetchall()
@@ -706,10 +725,14 @@ def search(req):
             box = 1
     elif search is not None:
         qa = "select animal_name,price,discount,image from Animal where animal_name=%s"
-        qs = "select animal_name,price,discount,image from Animal where species=" \
+        qs = (
+            "select animal_name,price,discount,image from Animal where species="
             "(select species_id from Species where species_name=%s)"
-        qt = "select animal_name,price,discount,image from Animal where type=" \
+        )
+        qt = (
+            "select animal_name,price,discount,image from Animal where type="
             "(select type_id from Type where type=%s)"
+        )
         v = (search,)
         cr.execute(qa, v)
         qarec = cr.fetchall()
@@ -792,9 +815,11 @@ def search(req):
         if kind:
             for e in kind:
                 if ranges is not None and preference is not None:
-                    qu = "select animal_name,price,discount,image from Animal " \
-                        "where type=(select type_id from Type where type=%s) " \
+                    qu = (
+                        "select animal_name,price,discount,image from Animal "
+                        "where type=(select type_id from Type where type=%s) "
                         "and price between %s and %s"
+                    )
                     if ranges == "1":
                         v = (e, 0, 50)
                     elif ranges == "2":
@@ -833,9 +858,11 @@ def search(req):
                             i += 1
                             j += 1
                 elif ranges is not None:
-                    qu = "select animal_name,price,discount,image from Animal " \
-                        "where type=(select type_id from Type where type=%s) " \
+                    qu = (
+                        "select animal_name,price,discount,image from Animal "
+                        "where type=(select type_id from Type where type=%s) "
                         "and price between %s and %s"
+                    )
                     if ranges == "1":
                         v = (e, 0, 50)
                     elif ranges == "2":
@@ -853,8 +880,10 @@ def search(req):
                         e = tuple(e)
                         arec.append(e)
                 elif preference is not None:
-                    qu = "select animal_name,price,discount,image from Animal " \
+                    qu = (
+                        "select animal_name,price,discount,image from Animal "
                         "where type=(select type_id from Type where type=%s)"
+                    )
                     v = (e,)
                     cr.execute(qu, v)
                     rec = cr.fetchall()
@@ -886,8 +915,10 @@ def search(req):
                             i += 1
                             j += 1
                 else:
-                    qu = "select animal_name,price,discount,image from Animal " \
+                    qu = (
+                        "select animal_name,price,discount,image from Animal "
                         "where type=(select type_id from Type where type=%s)"
+                    )
                     v = (e,)
                     cr.execute(qu, v)
                     rec = cr.fetchall()
@@ -920,8 +951,10 @@ def search(req):
             if ranges is not None and preference is not None:
                 if ranges is not None and preference is not None:
                     if preference == "low":
-                        qu = "select animal_name,price,discount,image from Animal " \
+                        qu = (
+                            "select animal_name,price,discount,image from Animal "
                             "where species=%s and price between %s and %s order by price asc"
+                        )
                         if ranges == "1":
                             v = (x, 0, 50)
                         elif ranges == "2":
@@ -939,8 +972,10 @@ def search(req):
                             e = tuple(e)
                             arec.append(e)
                     else:
-                        qu = "select animal_name,price,discount,image from Animal " \
+                        qu = (
+                            "select animal_name,price,discount,image from Animal "
                             "where species=%s and price between %s and %s order by price desc"
+                        )
                         if ranges == "1":
                             v = (x, 0, 50)
                         elif ranges == "2":
@@ -958,8 +993,10 @@ def search(req):
                             e = tuple(e)
                             arec.append(e)
             elif ranges is not None:
-                qu = "select animal_name,price,discount,image from "\
+                qu = (
+                    "select animal_name,price,discount,image from "
                     "Animal where species=%s and price between %s and %s"
+                )
                 if ranges == "1":
                     v = (x, 0, 50)
                 elif ranges == "2":
@@ -978,8 +1015,10 @@ def search(req):
                     arec.append(e)
             elif preference is not None:
                 if preference == "low":
-                    qu = "select animal_name,price,discount,image "\
+                    qu = (
+                        "select animal_name,price,discount,image "
                         "from Animal where species=%s order by price asc"
+                    )
                     v = (x,)
                     cr.execute(qu, v)
                     rec = cr.fetchall()
@@ -990,8 +1029,10 @@ def search(req):
                         e = tuple(e)
                         arec.append(e)
                 else:
-                    qu = "select animal_name,price,discount,image "\
+                    qu = (
+                        "select animal_name,price,discount,image "
                         "from Animal where species=%s order by price desc"
+                    )
                     v = (x,)
                     cr.execute(qu, v)
                     rec = cr.fetchall()
@@ -1031,7 +1072,9 @@ def search(req):
             },
         )
     return render(
-        req, "search/search.html", {"flag": flag, "req": l, "arec": final_list, "box": box}
+        req,
+        "search/search.html",
+        {"flag": flag, "req": l, "arec": final_list, "box": box},
     )
 
 
@@ -1043,13 +1086,17 @@ def pay(req):
     cr.execute(qu)
     rec = cr.fetchone()
     address = rec[0]
-    qu = "select country_name from Country where "\
+    qu = (
+        "select country_name from Country where "
         "country_id=(select country from Register where flag='1')"
+    )
     cr.execute(qu)
     rec = cr.fetchone()
     country = rec[0]
     return render(
-        req, "order/pay.html", {"amount": amount, "address": address, "country": country}
+        req,
+        "order/pay.html",
+        {"amount": amount, "address": address, "country": country},
     )
 
 
@@ -1116,19 +1163,19 @@ def success(req):
     cid = str(cid)
     r_id = str(r[0])
     order_id = (
-            m
-            + y
-            + d
-            + name
-            + citem
-            + cquant
-            + last
-            + atype
-            + aspecies
-            + anative
-            + aprice
-            + cid
-            + r_id
+        m
+        + y
+        + d
+        + name
+        + citem
+        + cquant
+        + last
+        + atype
+        + aspecies
+        + anative
+        + aprice
+        + cid
+        + r_id
     )
     for e in aid:
         qu = f"insert into Orders(order_id,order_detail,r_id) values('{order_id}',{e},{r[0]})"
@@ -1146,8 +1193,10 @@ def detail(req):
     animal = req.POST.get("more")
     conn = get_database_connection()
     cr = conn.cursor()
-    qu = "select animal_name,height,weight,lifespan,price,discount,"\
+    qu = (
+        "select animal_name,height,weight,lifespan,price,discount,"
         "type,image,descr from Animal where animal_name=%s"
+    )
     v = (animal,)
     cr.execute(qu, v)
     rec = cr.fetchone()
@@ -1249,9 +1298,10 @@ def help_task(req):
     query = req.POST.get("query")
     conn = get_database_connection()
     cr = conn.cursor()
-    qu = "insert into Query(name,last_name,email,mobile,query) "\
-        "values('{0}','{1}','{2}','{3}','{4}')".format(
-            name, last, mail, mobile, query)
+    qu = (
+        "insert into Query(name,last_name,email,mobile,query) "
+        "values('{0}','{1}','{2}','{3}','{4}')".format(name, last, mail, mobile, query)
+    )
     cr.execute(qu)
     conn.commit()
     conn.close()
